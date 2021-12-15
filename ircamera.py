@@ -132,7 +132,7 @@ class Camera:
         else:
             save_csv = False
 
-        if "sample_rate" in kwargs.keys()
+        if "sample_rate" in kwargs.keys():
             self._sample_rate = kwargs["sample_rate"]    
 
         assert isinstance(self._sample_rate, (int, float))
