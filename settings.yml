@@ -1,4 +1,5 @@
 Profile 1:
   dir: "./images"
   format: "jpeg"
+  sample_rate: 1.0
 

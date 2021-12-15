@@ -4,4 +4,4 @@ ircamera = Camera('20112117.xml')
 ircamera.set_dir("./images")
 ircamera.set_format("png")
 ircamera.set_radiation_parameters(0.01, 1.0, -2000.0) # is not working
-ircamera.show(1.0/60.0, use_colorbar=True, save_csv=True)
+ircamera.show(use_colorbar=True, save_csv=True)

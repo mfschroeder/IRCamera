@@ -18,6 +18,7 @@ class Camera:
         
         self._image_counter = 0
         self._format = "jpeg"
+        self._sample_rate = 1.0
 
 
     def read_settings(self, name, setup_file):
@@ -35,6 +36,10 @@ class Camera:
             
         if "emissivity" in settings.keys() and "transmissivity" in settings.keys() and "ambientTemperature" in settings.keys():
             self.set_radiation_parameters(settings["emissivity"], settings["transmissivity"], settings["ambientTemperature"])
+
+        if "sample rate" in settings.keys():
+            self._sample_rate = settings["sample rate"]
+            assert isinstance(self._sample_rate, (int, float)) and self._sample_rate > 0.0
     
     def set_radiation_parameters(self, emissivity: float, transmissivity: float, ambientTemperature: float):
         res = optris.set_radiation_parameters(emissivity, transmissivity, ambientTemperature)
@@ -110,10 +115,10 @@ class Camera:
     def reset_image_counter(self):
         self._image_counter = 0
 
-    def show(self, sample_rate: float, **kwargs):
-        print("Commands are not working!!!")
-        print("Start/stop recording by pressing the 'r' key.")
-        print("Quit the recording by pressing the 'q' key.")
+    def show(self, **kwargs):
+        print("Commands are not working!!! Recording is starting immediately! To stop use Ctrl+C!")
+        # print("Start/stop recording by pressing the 'r' key.")
+        # print("Quit the recording by pressing the 'q' key.")
 
         if "use_colorbar" in kwargs.keys():
             use_colorbar = kwargs["use_colorbar"]
@@ -126,11 +131,14 @@ class Camera:
             assert isinstance(save_csv, bool)
         else:
             save_csv = False
-            
-        assert isinstance(sample_rate, float)
-        assert sample_rate >= 0.0
 
-        is_recording = False
+        if "sample_rate" in kwargs.keys()
+            self._sample_rate = kwargs["sample_rate"]    
+
+        assert isinstance(self._sample_rate, (int, float))
+        assert self._sample_rate >= 0.0
+
+        # is_recording = False
         starttime = -1
         
         w, h = optris.get_thermal_image_size()
@@ -160,7 +168,7 @@ class Camera:
                 #line.set_clim(vmin=processed_thermal_frame.min(), vmax=processed_thermal_frame.max())
                 self._fig.canvas.draw()
                 
-                if (time() - starttime) >= (1 / sample_rate):
+                if (time() - starttime) >= (1 / self._sample_rate):
                     self._save_img(**kwargs)
                     if save_csv:
                         self._save_csv(**kwargs)
