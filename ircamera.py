@@ -71,7 +71,7 @@ class Camera:
 
         if img_name is None:
             self._fig.savefig(
-                f"{self._dir}/img_{str(self._image_counter).zfill(4)}",
+                f"{self._dir}/img_{str(self._image_counter).zfill(4)}.{self._format}",
                 format=self._format,
                 bbox_inches='tight', 
                 pad_inches = 0
