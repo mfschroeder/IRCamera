@@ -10,14 +10,12 @@
        See documentation for further information: http://evocortex.com/libirimager2/html/index.html
        By default, the first available optic and the first meaningful temperature range are selected.
   -->
-  <!--
   <fov>33</fov>
-  <temperature>
-    <min>-20</min>
-    <max>100</max>
+  <temperature>  <!-- Messbereiche -20-100, 0-250, 150-900 -->
+    <min>0</min>
+    <max>250</max>
   </temperature>
   <optics_text></optics_text>
-  -->
   <framerate>32.0</framerate>             <!-- scaled down frame rate, must be less or equal than camera frame rate -->
   <bispectral>0</bispectral>              <!-- 0=only thermal sensor, 1=bispectral technology (only PI200/PI230) -->
   <autoflag>
